@@ -1,0 +1,139 @@
+PASS  FCFS 24, 3, 3 (avg waiting 17)
+PASS  FCFS practice 5, 3, 8, 6 (7.25 / 12.75)
+PASS  SJF slide (avg waiting 4)
+PASS  SRTF slide (avg waiting 3)
+PASS  SJF practice (6.25 / 11.75)
+PASS  Priority practice (avg waiting 8.2)
+PASS  Round robin slide, q = 20
+PASS  Round robin practice, q = 4 (avg waiting 5.67)
+PASS  Multilevel feedback queue 8/16/FCFS
+PASS  Multilevel queue (foreground RR over background FCFS)
+PASS  Priority without aging starves P1
+PASS  Priority with aging every 3 ticks
+PASS  OS Simulator: FCFS finish times
+PASS  OS Simulator: SJF finish times
+PASS  OS Simulator: Priority finish times
+PASS  OS Simulator: Round robin q=2 finish times
+PASS  Idle gap between jobs
+PASS  Pages, slide string, 3 frames: FIFO
+PASS  Pages, 5-frame figure string: FIFO
+PASS  Pages with writes (NRU uses them): FIFO
+PASS  Pages, slide string, 3 frames: Optimal (OPT)
+PASS  Pages, 5-frame figure string: Optimal (OPT)
+PASS  Pages with writes (NRU uses them): Optimal (OPT)
+PASS  Pages, slide string, 3 frames: Not Recently Used (NRU)
+PASS  Pages, 5-frame figure string: Not Recently Used (NRU)
+PASS  Pages with writes (NRU uses them): Not Recently Used (NRU)
+PASS  Pages, slide string, 3 frames: Second Chance
+PASS  Pages, 5-frame figure string: Second Chance
+PASS  Pages with writes (NRU uses them): Second Chance
+PASS  Pages, slide string, 3 frames: CLOCK
+PASS  Pages, 5-frame figure string: CLOCK
+PASS  Pages with writes (NRU uses them): CLOCK
+PASS  Pages, slide string, 3 frames: Not Frequently Used (NFU)
+PASS  Pages, 5-frame figure string: Not Frequently Used (NFU)
+PASS  Pages with writes (NRU uses them): Not Frequently Used (NFU)
+PASS  Pages, slide string, 3 frames: Least Recently Used (LRU)
+PASS  Pages, 5-frame figure string: Least Recently Used (LRU)
+PASS  Pages with writes (NRU uses them): Least Recently Used (LRU)
+PASS  Pages, slide string, 3 frames: Random
+PASS  Pages, 5-frame figure string: Random
+PASS  Pages with writes (NRU uses them): Random
+PASS  Pages, slide string, 3 frames: Working Set
+PASS  Pages, 5-frame figure string: Working Set
+PASS  Pages with writes (NRU uses them): Working Set
+PASS  Slides: FIFO 15, OPT 9, LRU 12 page faults
+PASS  Slides: CLOCK figure ends 5|0 9|0 2|1 8|0* 3|1
+PASS  Banker's: classic example is safe, sequence P1 P3 P4 P0 P2
+PASS  Banker's: request P1 1 0 2 is granted
+PASS  Banker's: unsafe state
+PASS  Banker's: request beyond Need is rejected
+PASS  Deadlock: P1 to P4 are stuck
+PASS  Deadlock: recovery terminates P2
+PASS  Deadlock: safe example finishes P0 P2 P3 P4 P1
+PASS  Disk total head movement, all 6 algorithms
+PASS  Original Python output: paging: small
+PASS  Original Python output: paging: edge
+PASS  Original Python output: paging: dup
+PASS  Original Python output: paging: badtoken
+PASS  Original Python output: paging: neg
+PASS  Original Python output: seg: small
+PASS  Original Python output: seg: edge
+PASS  Original Python output: seg: badaddr
+PASS  Original Python output: seg: zero
+PASS  Original Python output: frag: small First Fit
+PASS  Original Python output: frag: edge First Fit
+PASS  Original Python output: frag: small Best Fit
+PASS  Original Python output: frag: edge Best Fit
+PASS  Original Python output: frag: small Worst Fit
+PASS  Original Python output: frag: edge Worst Fit
+PASS  Original Python output: frag: oneline
+PASS  Original Python output: disk: small FCFS Up
+PASS  Original Python output: disk: edge FCFS Up
+PASS  Original Python output: disk: small FCFS Down
+PASS  Original Python output: disk: edge FCFS Down
+PASS  Original Python output: disk: small SSTF Up
+PASS  Original Python output: disk: edge SSTF Up
+PASS  Original Python output: disk: small SSTF Down
+PASS  Original Python output: disk: edge SSTF Down
+PASS  Original Python output: disk: small SCAN Up
+PASS  Original Python output: disk: edge SCAN Up
+PASS  Original Python output: disk: small SCAN Down
+PASS  Original Python output: disk: edge SCAN Down
+PASS  Original Python output: disk: small C-SCAN Up
+PASS  Original Python output: disk: edge C-SCAN Up
+PASS  Original Python output: disk: small C-SCAN Down
+PASS  Original Python output: disk: edge C-SCAN Down
+PASS  Original Python output: disk: small LOOK Up
+PASS  Original Python output: disk: edge LOOK Up
+PASS  Original Python output: disk: small LOOK Down
+PASS  Original Python output: disk: edge LOOK Down
+PASS  Original Python output: disk: small C-LOOK Up
+PASS  Original Python output: disk: edge C-LOOK Up
+PASS  Original Python output: disk: small C-LOOK Down
+PASS  Original Python output: disk: edge C-LOOK Down
+PASS  Original Python output: disk: headbig
+PASS  Original Python output: disk: dupreq
+PASS  Original Python output: mp: small
+PASS  Original Python output: mp: edge
+PASS  Original Python output: mp: toobig
+PASS  Original Python output: mp: badline
+PASS  Original Python output: mp: gap
+PASS  Window: CPU Scheduling / Small sample runs
+PASS  Window: CPU Scheduling / Edge sample runs
+PASS  Window: CPU Scheduling / Large sample runs
+PASS  Window: CPU Scheduling shows a clear message for bad input
+PASS  Window: Page Replacement / Small sample runs
+PASS  Window: Page Replacement / Edge sample runs
+PASS  Window: Page Replacement / Large sample runs
+PASS  Window: Page Replacement shows a clear message for bad input
+PASS  Window: Deadlock Detection / Small sample runs
+PASS  Window: Deadlock Detection / Edge sample runs
+PASS  Window: Deadlock Detection / Large sample runs
+PASS  Window: Deadlock Detection shows a clear message for bad input
+PASS  Window: Banker's Algorithm / Small sample runs
+PASS  Window: Banker's Algorithm / Edge sample runs
+PASS  Window: Banker's Algorithm / Large sample runs
+PASS  Window: Banker's Algorithm shows a clear message for bad input
+PASS  Window: Paging / Small sample runs
+PASS  Window: Paging / Edge sample runs
+PASS  Window: Paging / Large sample runs
+PASS  Window: Paging shows a clear message for bad input
+PASS  Window: Segmentation / Small sample runs
+PASS  Window: Segmentation / Edge sample runs
+PASS  Window: Segmentation / Large sample runs
+PASS  Window: Segmentation shows a clear message for bad input
+PASS  Window: Fragmentation / Small sample runs
+PASS  Window: Fragmentation / Edge sample runs
+PASS  Window: Fragmentation / Large sample runs
+PASS  Window: Fragmentation shows a clear message for bad input
+PASS  Window: Disk Scheduling / Small sample runs
+PASS  Window: Disk Scheduling / Edge sample runs
+PASS  Window: Disk Scheduling / Large sample runs
+PASS  Window: Disk Scheduling shows a clear message for bad input
+PASS  Window: Multiprogramming / Small sample runs
+PASS  Window: Multiprogramming / Edge sample runs
+PASS  Window: Multiprogramming / Large sample runs
+PASS  Window: Multiprogramming shows a clear message for bad input
+
+137/137 tests passed

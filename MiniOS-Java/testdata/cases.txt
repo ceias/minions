@@ -1,0 +1,911 @@
+@@CASE paging: small
+mod=paging
+opt Page size=1024
+opt Addresses=100, 1500, 3000, 4095, 5000
+--TEXT
+0 5
+1 2
+2 7
+3 0
+--OK
+Logical | Page | Offset | Frame | Physical  
+--------+------+--------+-------+-----------
+100     | 0    | 100    | 5     | 5220      
+1500    | 1    | 476    | 2     | 2524      
+3000    | 2    | 952    | 7     | 8120      
+4095    | 3    | 1023   | 0     | 1023      
+5000    | 4    | 904    | -     | PAGE FAULT
+
+Formula: physical = frame * page_size + offset; page = address // page_size
+@@END
+@@CASE paging: edge
+mod=paging
+opt Page size=4
+opt Addresses=0, 3, 4, 7, 8, 100
+--TEXT
+0 3
+1 1
+--OK
+Logical | Page | Offset | Frame | Physical  
+--------+------+--------+-------+-----------
+0       | 0    | 0      | 3     | 12        
+3       | 0    | 3      | 3     | 15        
+4       | 1    | 0      | 1     | 4         
+7       | 1    | 3      | 1     | 7         
+8       | 2    | 0      | -     | PAGE FAULT
+100     | 25   | 0      | -     | PAGE FAULT
+
+Formula: physical = frame * page_size + offset; page = address // page_size
+@@END
+@@CASE paging: dup
+mod=paging
+opt Page size=4
+opt Addresses=1
+--TEXT
+0 1
+0 2
+--ERR
+Page 0 appears twice in the page table
+@@END
+@@CASE paging: badtoken
+mod=paging
+opt Page size=4
+opt Addresses=abc
+--TEXT
+0 1
+--ERR
+Addresses: 'abc' is not a whole number
+@@END
+@@CASE paging: neg
+mod=paging
+opt Page size=0
+opt Addresses=1
+--TEXT
+0 1
+--ERR
+Page size: 0 must be >= 1
+@@END
+@@CASE seg: small
+mod=seg
+opt Addresses=0:430, 1:10, 2:500, 3:400, 4:1222, 7:5
+--TEXT
+0 1400 1000
+1 6300 400
+2 4300 400
+3 3200 1100
+4 4700 1000
+--OK
+Address | Seg | Offset | Limit | Physical                 
+--------+-----+--------+-------+--------------------------
+0:430   | 0   | 430    | 1000  | 1830                     
+1:10    | 1   | 10     | 400   | 6310                     
+2:500   | 2   | 500    | 400   | TRAP: offset beyond limit
+3:400   | 3   | 400    | 1100  | 3600                     
+4:1222  | 4   | 1222   | 1000  | TRAP: offset beyond limit
+7:5     | 7   | 5      | -     | TRAP: no such segment    
+
+Rule: valid if offset < limit; physical = base + offset
+@@END
+@@CASE seg: edge
+mod=seg
+opt Addresses=0:0, 0:49, 0:50, 1:0
+--TEXT
+0 100 50
+--OK
+Address | Seg | Offset | Limit | Physical                 
+--------+-----+--------+-------+--------------------------
+0:0     | 0   | 0      | 50    | 100                      
+0:49    | 0   | 49     | 50    | 149                      
+0:50    | 0   | 50     | 50    | TRAP: offset beyond limit
+1:0     | 1   | 0      | -     | TRAP: no such segment    
+
+Rule: valid if offset < limit; physical = base + offset
+@@END
+@@CASE seg: badaddr
+mod=seg
+opt Addresses=1-2
+--TEXT
+0 100 50
+--ERR
+Address '1-2' must look like seg:offset
+@@END
+@@CASE seg: zero
+mod=seg
+opt Addresses=0:0
+--TEXT
+0 100 0
+--ERR
+Segment 0: limit must be at least 1
+@@END
+@@CASE frag: small First Fit
+mod=frag
+opt Strategy=First Fit
+--TEXT
+100 500 200 300 600
+212 417 112 426
+--OK
+Process | Size | Block    | Status        | Internal frag
+--------+------+----------+---------------+--------------
+P1      | 212  | B2 (500) | allocated     | 288          
+P2      | 417  | B5 (600) | allocated     | 183          
+P3      | 112  | B3 (200) | allocated     | 88           
+P4      | 426  | -        | NOT ALLOCATED | -            
+
+Total internal fragmentation: 559
+Free (unused) blocks: B1(100), B4(300)
+Total free memory: 400
+No external fragmentation problem detected.
+@@END
+@@CASE frag: edge First Fit
+mod=frag
+opt Strategy=First Fit
+--TEXT
+50 50 50
+120
+--OK
+Process | Size | Block | Status        | Internal frag
+--------+------+-------+---------------+--------------
+P1      | 120  | -     | NOT ALLOCATED | -            
+
+Total internal fragmentation: 0
+Free (unused) blocks: B1(50), B2(50), B3(50)
+Total free memory: 150
+EXTERNAL FRAGMENTATION: enough total free memory exists but no single block fits process size(s) [120].
+@@END
+@@CASE frag: small Best Fit
+mod=frag
+opt Strategy=Best Fit
+--TEXT
+100 500 200 300 600
+212 417 112 426
+--OK
+Process | Size | Block    | Status    | Internal frag
+--------+------+----------+-----------+--------------
+P1      | 212  | B4 (300) | allocated | 88           
+P2      | 417  | B2 (500) | allocated | 83           
+P3      | 112  | B3 (200) | allocated | 88           
+P4      | 426  | B5 (600) | allocated | 174          
+
+Total internal fragmentation: 433
+Free (unused) blocks: B1(100)
+Total free memory: 100
+No external fragmentation problem detected.
+@@END
+@@CASE frag: edge Best Fit
+mod=frag
+opt Strategy=Best Fit
+--TEXT
+50 50 50
+120
+--OK
+Process | Size | Block | Status        | Internal frag
+--------+------+-------+---------------+--------------
+P1      | 120  | -     | NOT ALLOCATED | -            
+
+Total internal fragmentation: 0
+Free (unused) blocks: B1(50), B2(50), B3(50)
+Total free memory: 150
+EXTERNAL FRAGMENTATION: enough total free memory exists but no single block fits process size(s) [120].
+@@END
+@@CASE frag: small Worst Fit
+mod=frag
+opt Strategy=Worst Fit
+--TEXT
+100 500 200 300 600
+212 417 112 426
+--OK
+Process | Size | Block    | Status        | Internal frag
+--------+------+----------+---------------+--------------
+P1      | 212  | B5 (600) | allocated     | 388          
+P2      | 417  | B2 (500) | allocated     | 83           
+P3      | 112  | B4 (300) | allocated     | 188          
+P4      | 426  | -        | NOT ALLOCATED | -            
+
+Total internal fragmentation: 659
+Free (unused) blocks: B1(100), B3(200)
+Total free memory: 300
+No external fragmentation problem detected.
+@@END
+@@CASE frag: edge Worst Fit
+mod=frag
+opt Strategy=Worst Fit
+--TEXT
+50 50 50
+120
+--OK
+Process | Size | Block | Status        | Internal frag
+--------+------+-------+---------------+--------------
+P1      | 120  | -     | NOT ALLOCATED | -            
+
+Total internal fragmentation: 0
+Free (unused) blocks: B1(50), B2(50), B3(50)
+Total free memory: 150
+EXTERNAL FRAGMENTATION: enough total free memory exists but no single block fits process size(s) [120].
+@@END
+@@CASE frag: oneline
+mod=frag
+opt Strategy=First Fit
+--TEXT
+100 200
+--ERR
+Enter exactly 2 lines: block sizes, then process sizes.
+@@END
+@@CASE disk: small FCFS Up
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Up
+opt Algorithm=FCFS
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+FCFS, head starts at 53
+Service order: 53 -> 98 -> 183 -> 37 -> 122 -> 14 -> 124 -> 65 -> 67
+Total head movement: 640 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 331           
+C-SCAN    | 382           
+LOOK      | 299           
+C-LOOK    | 322           
+@@END
+@@CASE disk: edge FCFS Up
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Up
+opt Algorithm=FCFS
+--TEXT
+0 99 50
+--OK
+FCFS, head starts at 0
+Service order: 0 -> 0 -> 99 -> 50
+Total head movement: 148 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 99            
+@@END
+@@CASE disk: small FCFS Down
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Down
+opt Algorithm=FCFS
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+FCFS, head starts at 53
+Service order: 53 -> 98 -> 183 -> 37 -> 122 -> 14 -> 124 -> 65 -> 67
+Total head movement: 640 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 236           
+C-SCAN    | 386           
+LOOK      | 208           
+C-LOOK    | 326           
+@@END
+@@CASE disk: edge FCFS Down
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Down
+opt Algorithm=FCFS
+--TEXT
+0 99 50
+--OK
+FCFS, head starts at 0
+Service order: 0 -> 0 -> 99 -> 50
+Total head movement: 148 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 198           
+@@END
+@@CASE disk: small SSTF Up
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Up
+opt Algorithm=SSTF
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+SSTF, head starts at 53
+Service order: 53 -> 65 -> 67 -> 37 -> 14 -> 98 -> 122 -> 124 -> 183
+Total head movement: 236 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 331           
+C-SCAN    | 382           
+LOOK      | 299           
+C-LOOK    | 322           
+@@END
+@@CASE disk: edge SSTF Up
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Up
+opt Algorithm=SSTF
+--TEXT
+0 99 50
+--OK
+SSTF, head starts at 0
+Service order: 0 -> 0 -> 50 -> 99
+Total head movement: 99 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 99            
+@@END
+@@CASE disk: small SSTF Down
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Down
+opt Algorithm=SSTF
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+SSTF, head starts at 53
+Service order: 53 -> 65 -> 67 -> 37 -> 14 -> 98 -> 122 -> 124 -> 183
+Total head movement: 236 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 236           
+C-SCAN    | 386           
+LOOK      | 208           
+C-LOOK    | 326           
+@@END
+@@CASE disk: edge SSTF Down
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Down
+opt Algorithm=SSTF
+--TEXT
+0 99 50
+--OK
+SSTF, head starts at 0
+Service order: 0 -> 0 -> 50 -> 99
+Total head movement: 99 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 198           
+@@END
+@@CASE disk: small SCAN Up
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Up
+opt Algorithm=SCAN
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+SCAN, head starts at 53
+Service order: 53 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -> 199 -> 37 -> 14
+Total head movement: 331 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 331           
+C-SCAN    | 382           
+LOOK      | 299           
+C-LOOK    | 322           
+@@END
+@@CASE disk: edge SCAN Up
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Up
+opt Algorithm=SCAN
+--TEXT
+0 99 50
+--OK
+SCAN, head starts at 0
+Service order: 0 -> 0 -> 50 -> 99 -> 99
+Total head movement: 99 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 99            
+@@END
+@@CASE disk: small SCAN Down
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Down
+opt Algorithm=SCAN
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+SCAN, head starts at 53
+Service order: 53 -> 37 -> 14 -> 0 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183
+Total head movement: 236 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 236           
+C-SCAN    | 386           
+LOOK      | 208           
+C-LOOK    | 326           
+@@END
+@@CASE disk: edge SCAN Down
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Down
+opt Algorithm=SCAN
+--TEXT
+0 99 50
+--OK
+SCAN, head starts at 0
+Service order: 0 -> 0 -> 0 -> 50 -> 99
+Total head movement: 99 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 198           
+@@END
+@@CASE disk: small C-SCAN Up
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Up
+opt Algorithm=C-SCAN
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+C-SCAN, head starts at 53
+Service order: 53 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -> 199 -> 0 -> 14 -> 37
+Total head movement: 382 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 331           
+C-SCAN    | 382           
+LOOK      | 299           
+C-LOOK    | 322           
+@@END
+@@CASE disk: edge C-SCAN Up
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Up
+opt Algorithm=C-SCAN
+--TEXT
+0 99 50
+--OK
+C-SCAN, head starts at 0
+Service order: 0 -> 0 -> 50 -> 99 -> 99 -> 0
+Total head movement: 198 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 99            
+@@END
+@@CASE disk: small C-SCAN Down
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Down
+opt Algorithm=C-SCAN
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+C-SCAN, head starts at 53
+Service order: 53 -> 37 -> 14 -> 0 -> 199 -> 183 -> 124 -> 122 -> 98 -> 67 -> 65
+Total head movement: 386 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 236           
+C-SCAN    | 386           
+LOOK      | 208           
+C-LOOK    | 326           
+@@END
+@@CASE disk: edge C-SCAN Down
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Down
+opt Algorithm=C-SCAN
+--TEXT
+0 99 50
+--OK
+C-SCAN, head starts at 0
+Service order: 0 -> 0 -> 99 -> 99 -> 50 -> 0
+Total head movement: 198 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 198           
+@@END
+@@CASE disk: small LOOK Up
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Up
+opt Algorithm=LOOK
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+LOOK, head starts at 53
+Service order: 53 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -> 37 -> 14
+Total head movement: 299 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 331           
+C-SCAN    | 382           
+LOOK      | 299           
+C-LOOK    | 322           
+@@END
+@@CASE disk: edge LOOK Up
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Up
+opt Algorithm=LOOK
+--TEXT
+0 99 50
+--OK
+LOOK, head starts at 0
+Service order: 0 -> 0 -> 50 -> 99
+Total head movement: 99 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 99            
+@@END
+@@CASE disk: small LOOK Down
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Down
+opt Algorithm=LOOK
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+LOOK, head starts at 53
+Service order: 53 -> 37 -> 14 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183
+Total head movement: 208 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 236           
+C-SCAN    | 386           
+LOOK      | 208           
+C-LOOK    | 326           
+@@END
+@@CASE disk: edge LOOK Down
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Down
+opt Algorithm=LOOK
+--TEXT
+0 99 50
+--OK
+LOOK, head starts at 0
+Service order: 0 -> 0 -> 50 -> 99
+Total head movement: 99 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 198           
+@@END
+@@CASE disk: small C-LOOK Up
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Up
+opt Algorithm=C-LOOK
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+C-LOOK, head starts at 53
+Service order: 53 -> 65 -> 67 -> 98 -> 122 -> 124 -> 183 -> 14 -> 37
+Total head movement: 322 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 331           
+C-SCAN    | 382           
+LOOK      | 299           
+C-LOOK    | 322           
+@@END
+@@CASE disk: edge C-LOOK Up
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Up
+opt Algorithm=C-LOOK
+--TEXT
+0 99 50
+--OK
+C-LOOK, head starts at 0
+Service order: 0 -> 0 -> 50 -> 99
+Total head movement: 99 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 99            
+@@END
+@@CASE disk: small C-LOOK Down
+mod=disk
+opt Head=53
+opt Disk size=200
+opt Direction=Down
+opt Algorithm=C-LOOK
+--TEXT
+98 183 37 122 14 124 65 67
+--OK
+C-LOOK, head starts at 53
+Service order: 53 -> 37 -> 14 -> 183 -> 124 -> 122 -> 98 -> 67 -> 65
+Total head movement: 326 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 640           
+SSTF      | 236           
+SCAN      | 236           
+C-SCAN    | 386           
+LOOK      | 208           
+C-LOOK    | 326           
+@@END
+@@CASE disk: edge C-LOOK Down
+mod=disk
+opt Head=0
+opt Disk size=100
+opt Direction=Down
+opt Algorithm=C-LOOK
+--TEXT
+0 99 50
+--OK
+C-LOOK, head starts at 0
+Service order: 0 -> 99 -> 50 -> 0
+Total head movement: 198 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 148           
+SSTF      | 99            
+SCAN      | 99            
+C-SCAN    | 198           
+LOOK      | 99            
+C-LOOK    | 198           
+@@END
+@@CASE disk: headbig
+mod=disk
+opt Head=10
+opt Disk size=10
+opt Direction=Up
+opt Algorithm=SCAN
+--TEXT
+5
+--ERR
+Head and requests must be less than the disk size (cylinders 0..size-1).
+@@END
+@@CASE disk: dupreq
+mod=disk
+opt Head=50
+opt Disk size=100
+opt Direction=Up
+opt Algorithm=SSTF
+--TEXT
+50 50 10 10 50
+--OK
+SSTF, head starts at 50
+Service order: 50 -> 50 -> 50 -> 50 -> 10 -> 10
+Total head movement: 40 cylinders
+
+Comparison:
+Algorithm | Total movement
+----------+---------------
+FCFS      | 80            
+SSTF      | 40            
+SCAN      | 138           
+C-SCAN    | 158           
+LOOK      | 40            
+C-LOOK    | 40            
+@@END
+@@CASE mp: small
+mod=mp
+opt Total memory=100
+opt Quantum=3
+--TEXT
+J1 40 8 0
+J2 30 5 1
+J3 50 6 2
+J4 20 4 3
+--OK
+t=0    ADMIT  J1  memory in use 40/100
+t=0    RUN    J1  for 3  (degree of multiprogramming 1)
+t=3    ADMIT  J2  memory in use 70/100
+t=3    ADMIT  J4  memory in use 90/100
+t=3    RUN    J1  for 3  (degree of multiprogramming 3)
+t=6    RUN    J2  for 3  (degree of multiprogramming 3)
+t=9    RUN    J4  for 3  (degree of multiprogramming 3)
+t=12   RUN    J1  for 2  (degree of multiprogramming 3)
+t=14   FINISH J1  memory in use 50/100
+t=14   ADMIT  J3  memory in use 100/100
+t=14   RUN    J2  for 2  (degree of multiprogramming 3)
+t=16   FINISH J2  memory in use 70/100
+t=16   RUN    J4  for 1  (degree of multiprogramming 2)
+t=17   FINISH J4  memory in use 50/100
+t=17   RUN    J3  for 3  (degree of multiprogramming 1)
+t=20   RUN    J3  for 3  (degree of multiprogramming 1)
+t=23   FINISH J3  memory in use 0/100
+
+Total time: 23
+CPU utilization: 100.0%
+Average memory utilization: 73.0%
+Maximum programs in memory at once: 3
+@@END
+@@CASE mp: edge
+mod=mp
+opt Total memory=100
+opt Quantum=3
+--TEXT
+J1 100 3 0
+J2 100 3 0
+--OK
+t=0    ADMIT  J1  memory in use 100/100
+t=0    RUN    J1  for 3  (degree of multiprogramming 1)
+t=3    FINISH J1  memory in use 0/100
+t=3    ADMIT  J2  memory in use 100/100
+t=3    RUN    J2  for 3  (degree of multiprogramming 1)
+t=6    FINISH J2  memory in use 0/100
+
+Total time: 6
+CPU utilization: 100.0%
+Average memory utilization: 100.0%
+Maximum programs in memory at once: 1
+@@END
+@@CASE mp: toobig
+mod=mp
+opt Total memory=100
+opt Quantum=3
+--TEXT
+J1 200 3 0
+--ERR
+J1 needs 200 but total memory is only 100
+@@END
+@@CASE mp: badline
+mod=mp
+opt Total memory=100
+opt Quantum=3
+--TEXT
+J1 20 3
+--ERR
+'J1 20 3': use PID memory burst arrival
+@@END
+@@CASE mp: gap
+mod=mp
+opt Total memory=100
+opt Quantum=2
+--TEXT
+J1 20 3 0
+J2 20 3 50
+--OK
+t=0    ADMIT  J1  memory in use 20/100
+t=0    RUN    J1  for 2  (degree of multiprogramming 1)
+t=2    RUN    J1  for 1  (degree of multiprogramming 1)
+t=3    FINISH J1  memory in use 0/100
+t=50   ADMIT  J2  memory in use 20/100
+t=50   RUN    J2  for 2  (degree of multiprogramming 1)
+t=52   RUN    J2  for 1  (degree of multiprogramming 1)
+t=53   FINISH J2  memory in use 0/100
+
+Total time: 53
+CPU utilization: 11.3%
+Average memory utilization: 2.3%
+Maximum programs in memory at once: 1
+@@END

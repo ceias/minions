@@ -1,0 +1,140 @@
+PASS  CPU Scheduling / First come, first served (FIFO) / 4 input lines
+PASS  CPU Scheduling / Shortest job first (non-preemptive) / 4 input lines
+PASS  CPU Scheduling / Shortest remaining time first (preemptive SJF) / 4 input lines
+PASS  CPU Scheduling / Priority (non-preemptive) / 4 input lines
+PASS  CPU Scheduling / Priority (preemptive) / 4 input lines
+PASS  CPU Scheduling / Round robin / 4 input lines
+PASS  CPU Scheduling / Multilevel queue / 4 input lines
+PASS  CPU Scheduling / Multilevel feedback queue / 4 input lines
+PASS  CPU Scheduling sample
+PASS  CPU Scheduling / First come, first served (FIFO) / 40 input lines
+PASS  CPU Scheduling / Shortest job first (non-preemptive) / 40 input lines
+PASS  CPU Scheduling / Shortest remaining time first (preemptive SJF) / 40 input lines
+PASS  CPU Scheduling / Priority (non-preemptive) / 40 input lines
+PASS  CPU Scheduling / Priority (preemptive) / 40 input lines
+PASS  CPU Scheduling / Round robin / 40 input lines
+PASS  CPU Scheduling / Multilevel queue / 40 input lines
+PASS  CPU Scheduling / Multilevel feedback queue / 40 input lines
+PASS  CPU Scheduling sample
+PASS  CPU Scheduling / First come, first served (FIFO) / 3 input lines
+PASS  CPU Scheduling / Shortest job first (non-preemptive) / 3 input lines
+PASS  CPU Scheduling / Shortest remaining time first (preemptive SJF) / 3 input lines
+PASS  CPU Scheduling / Priority (non-preemptive) / 3 input lines
+PASS  CPU Scheduling / Priority (preemptive) / 3 input lines
+PASS  CPU Scheduling / Round robin / 3 input lines
+PASS  CPU Scheduling / Multilevel queue / 3 input lines
+PASS  CPU Scheduling / Multilevel feedback queue / 3 input lines
+PASS  CPU Scheduling sample
+PASS  CPU Scheduling rejects blank input
+PASS  Page Replacement / FIFO / 1 input lines
+PASS  Page Replacement / Optimal (OPT) / 1 input lines
+PASS  Page Replacement / Not Recently Used (NRU) / 1 input lines
+PASS  Page Replacement / Second Chance / 1 input lines
+PASS  Page Replacement / CLOCK / 1 input lines
+PASS  Page Replacement / Not Frequently Used (NFU) / 1 input lines
+PASS  Page Replacement / Least Recently Used (LRU) / 1 input lines
+PASS  Page Replacement / Random / 1 input lines
+PASS  Page Replacement / Working Set / 1 input lines
+PASS  Page Replacement sample
+PASS  Page Replacement / FIFO / 1 input lines
+PASS  Page Replacement / Optimal (OPT) / 1 input lines
+PASS  Page Replacement / Not Recently Used (NRU) / 1 input lines
+PASS  Page Replacement / Second Chance / 1 input lines
+PASS  Page Replacement / CLOCK / 1 input lines
+PASS  Page Replacement / Not Frequently Used (NFU) / 1 input lines
+PASS  Page Replacement / Least Recently Used (LRU) / 1 input lines
+PASS  Page Replacement / Random / 1 input lines
+PASS  Page Replacement / Working Set / 1 input lines
+PASS  Page Replacement sample
+PASS  Page Replacement / FIFO / 1 input lines
+PASS  Page Replacement / Optimal (OPT) / 1 input lines
+PASS  Page Replacement / Not Recently Used (NRU) / 1 input lines
+PASS  Page Replacement / Second Chance / 1 input lines
+PASS  Page Replacement / CLOCK / 1 input lines
+PASS  Page Replacement / Not Frequently Used (NFU) / 1 input lines
+PASS  Page Replacement / Least Recently Used (LRU) / 1 input lines
+PASS  Page Replacement / Random / 1 input lines
+PASS  Page Replacement / Working Set / 1 input lines
+PASS  Page Replacement sample
+PASS  Page Replacement rejects blank input
+PASS  Deadlock Detection sample
+PASS  Deadlock Detection sample
+PASS  Deadlock Detection sample
+PASS  Deadlock Detection rejects blank input
+PASS  Banker's Algorithm sample
+PASS  Banker's Algorithm sample
+PASS  Banker's Algorithm sample
+PASS  Banker's Algorithm rejects blank input
+PASS  Paging sample
+PASS  Paging sample
+PASS  Paging sample
+PASS  Paging rejects blank input
+PASS  Segmentation sample
+PASS  Segmentation sample
+PASS  Segmentation sample
+PASS  Segmentation rejects blank input
+PASS  Fragmentation / First Fit / 2 input lines
+PASS  Fragmentation / Best Fit / 2 input lines
+PASS  Fragmentation / Worst Fit / 2 input lines
+PASS  Fragmentation sample
+PASS  Fragmentation / First Fit / 2 input lines
+PASS  Fragmentation / Best Fit / 2 input lines
+PASS  Fragmentation / Worst Fit / 2 input lines
+PASS  Fragmentation sample
+PASS  Fragmentation / First Fit / 2 input lines
+PASS  Fragmentation / Best Fit / 2 input lines
+PASS  Fragmentation / Worst Fit / 2 input lines
+PASS  Fragmentation sample
+PASS  Fragmentation rejects blank input
+PASS  Disk Scheduling / Up / 1 input lines
+PASS  Disk Scheduling / Down / 1 input lines
+PASS  Disk Scheduling / FCFS / 1 input lines
+PASS  Disk Scheduling / SSTF / 1 input lines
+PASS  Disk Scheduling / SCAN / 1 input lines
+PASS  Disk Scheduling / C-SCAN / 1 input lines
+PASS  Disk Scheduling / LOOK / 1 input lines
+PASS  Disk Scheduling / C-LOOK / 1 input lines
+PASS  Disk Scheduling sample
+PASS  Disk Scheduling / Up / 1 input lines
+PASS  Disk Scheduling / Down / 1 input lines
+PASS  Disk Scheduling / FCFS / 1 input lines
+PASS  Disk Scheduling / SSTF / 1 input lines
+PASS  Disk Scheduling / SCAN / 1 input lines
+PASS  Disk Scheduling / C-SCAN / 1 input lines
+PASS  Disk Scheduling / LOOK / 1 input lines
+PASS  Disk Scheduling / C-LOOK / 1 input lines
+PASS  Disk Scheduling sample
+PASS  Disk Scheduling / Up / 1 input lines
+PASS  Disk Scheduling / Down / 1 input lines
+PASS  Disk Scheduling / FCFS / 1 input lines
+PASS  Disk Scheduling / SSTF / 1 input lines
+PASS  Disk Scheduling / SCAN / 1 input lines
+PASS  Disk Scheduling / C-SCAN / 1 input lines
+PASS  Disk Scheduling / LOOK / 1 input lines
+PASS  Disk Scheduling / C-LOOK / 1 input lines
+PASS  Disk Scheduling sample
+PASS  Disk Scheduling rejects blank input
+PASS  Multiprogramming sample
+PASS  Multiprogramming sample
+PASS  Multiprogramming sample
+PASS  Multiprogramming rejects blank input
+PASS  CPU completes beyond former 100,000-tick cutoff
+PASS  fifo known answer with 64 frames
+PASS  opt known answer with 64 frames
+PASS  nru known answer with 64 frames
+PASS  sc known answer with 64 frames
+PASS  clock known answer with 64 frames
+PASS  nfu known answer with 64 frames
+PASS  lru known answer with 64 frames
+PASS  rand known answer with 64 frames
+PASS  ws known answer with 64 frames
+PASS  GUI accepts more than 20 frames
+PASS  Negative numeric pages rejected
+PASS  Indented comments ignored
+PASS  Paging manual answer 1500 -> 2524
+PASS  Segment last valid byte
+PASS  Segment limit traps
+PASS  Fixed partition internal waste 100-60=40
+PASS  Multiprogramming two equal jobs fully utilize CPU
+
+138/138 rubric checks passed
