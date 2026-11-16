@@ -57,7 +57,13 @@ public class ConversationTest {
             app.clear(); app.route("srtf"); assertEquals("CUSTOM 0 3",app.active.input.getText());
             int count=app.history.getChildren().size();app.route("unknown command");
             assertTrue(app.history.getChildren().size()>count);
-            app.route("help"); app.home(); assertNull(app.active);
+            app.route("help");
+            javafx.scene.layout.HBox help=(javafx.scene.layout.HBox)app.history.getChildren().get(app.history.getChildren().size()-1);
+            String message=((javafx.scene.control.Label)help.getChildren().get(1)).getText();
+            assertTrue(message.contains("HOW TO USE"));
+            assertTrue(message.contains("Commands:"));
+            assertFalse(message.toLowerCase().contains("rubric"));
+            app.home(); assertNull(app.active);
         });
     }
     @Test void validationRecoversAndRunCommandExecutes() throws Exception {

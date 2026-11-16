@@ -19,7 +19,7 @@ Deadlock Detection is an additional module, separate from the eight required are
 
 ## B. GUI and flexible input — 10 points
 
-`MiniOS.java` and `Modules.java` provide navigation, editable input, algorithm selectors, Small/Large/Edge examples, Copy/Save and validation messages. Counts are inferred from variable-length input; users do not need to type a separate count. No fixed item-count restriction is imposed. The former 20-frame restriction was removed and CPU simulation no longer silently truncates at 100,000 ticks. Numeric values use Java integer-backed structures and input bounds; memory/CPU limits still apply. CPU simulation is tick-based and very large runs can take time. The in-app Rubric / Demo Guide explains assessment and presentation expectations.
+`MiniOS.java` and `Modules.java` provide navigation, editable input, algorithm selectors, Small/Large/Edge examples, Copy/Save and validation messages. Counts are inferred from variable-length input; users do not need to type a separate count. No fixed item-count restriction is imposed. The former 20-frame restriction was removed and CPU simulation no longer silently truncates at 100,000 ticks. Numeric values use Java integer-backed structures and input bounds; memory/CPU limits still apply. CPU simulation is tick-based and very large runs can take time. The rubric guides implementation and testing through this document; the in-app Help explains operation only.
 
 ## C. Accuracy and testing — 15 points
 

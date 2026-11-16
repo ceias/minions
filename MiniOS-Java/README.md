@@ -39,7 +39,7 @@ the output of the original Python OS Simulator (`testdata/cases.txt`), agreement
 
 ## Rubric-integrated edition
 
-Start with [Antigravity setup](ANTIGRAVITY-SETUP.md), then read [rubric coverage and presentation guide](RUBRIC-COVERAGE.md). The app also has a **Rubric / Demo Guide** button. Build with JDK 21: `sh build.sh` (macOS/Linux), or `cmd /c build.bat` (Windows). These scripts run the 137 original tests and 138 additional rubric checks before packaging the JAR. The former frame cap and silent CPU cutoff have been removed.
+Start with [Antigravity setup](ANTIGRAVITY-SETUP.md), then read [rubric coverage and presentation guide](RUBRIC-COVERAGE.md). The app has a **Help** button for usage instructions; the rubric remains a development reference in the documentation. Build with JDK 21: `sh build.sh` (macOS/Linux), or `cmd /c build.bat` (Windows). These scripts run the 137 original tests and 138 additional rubric checks before packaging the JAR. The former frame cap and silent CPU cutoff have been removed.
 
 ## New: JavaFX frog chat interface
 

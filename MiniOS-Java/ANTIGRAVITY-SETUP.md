@@ -23,7 +23,7 @@ This is a Java Swing desktop application. No Maven, Gradle, web server, API key 
    ```
    Alternatively, Windows: `cmd /c run.bat`; macOS/Linux: `sh run.sh`.
 7. Select **CPU Scheduling**, click **Small**, then **Run**. Select other algorithms and run again. Repeat for each required module. **Large** and **Edge** provide larger and boundary examples; the samples are editable.
-8. Click **Rubric / Demo Guide**. Read `RUBRIC-COVERAGE.md` for assessment mapping, known answers and the presentation plan.
+8. Click **Help** for operating instructions. For development and assessment planning, read `RUBRIC-COVERAGE.md` for assessment mapping, known answers and the presentation plan.
 9. Save results with each module's **Save** button. Save test evidence from the terminal:
    ```text
    java -Djava.awt.headless=true -cp out Tests > original-test-results.txt

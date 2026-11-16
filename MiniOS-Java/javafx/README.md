@@ -34,7 +34,7 @@ The first run requires Internet access to Maven Central to download JavaFX and b
 - Results appear in a scrollable monospace area with Copy/Save controls.
 - Enter or Send routes commands: `srtf`, `run srtf`, `run lru`, `banker`, `deadlock`, `paging`, `segmentation`, `fragmentation`, `disk`, `multiprogramming`, `run`, `help`, `home`, `clear`.
 - `run <algorithm>` executes the data currently in that algorithm's module card. If not previously opened, it executes the visible Small sample. `run` executes the active card.
-- Help (`?`) displays the rubric and demo guide. Home hides the current editor and shows guidance. Clear removes chat history but keeps module input drafts.
+- Help (`?`) explains module inputs and available commands. Home hides the current editor and shows guidance. Clear removes chat history but keeps module input drafts.
 - Title bar controls minimize, maximize/restore and close; drag its background to move the window. Maximize/restore provides window sizing for this custom undecorated frame.
 
 ## Validation

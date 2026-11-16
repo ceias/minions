@@ -87,7 +87,7 @@ public class MiniOSFX extends Application {
         Button clear = button("×", this::clear);
         help.setText(""); home.setText(""); clear.setText("");
         help.setGraphic(icon(686, 691)); home.setGraphic(icon(532, 691)); clear.setGraphic(icon(532, 545));
-        help.setAccessibleText("Help and rubric"); home.setAccessibleText("Home"); clear.setAccessibleText("Clear conversation");
+        help.setAccessibleText("Mini OS help"); home.setAccessibleText("Home"); clear.setAccessibleText("Clear conversation");
         help.getStyleClass().add("icon-button"); home.getStyleClass().add("icon-button"); clear.getStyleClass().add("icon-button");
         VBox side = new VBox(14, frog, help, home, clear);
         side.setAlignment(Pos.TOP_CENTER); side.setPrefWidth(95);
@@ -161,7 +161,7 @@ public class MiniOSFX extends Application {
         history.getChildren().clear(); active = null;
         bubble("Conversation cleared. Your module inputs are kept. Choose a module to continue.", false);
     }
-    void help() { bubble(RubricGuide.TEXT + "\nCommands: help, home, clear, run, run srtf, run lru, banker, deadlock, paging, segmentation, fragmentation, disk, multiprogramming.\nThis is a local command interface; it does not call an AI service.", false); }
+    void help() { bubble(AppHelp.TEXT + "\nCommands: help, home, clear, run, run srtf, run lru, banker, deadlock, paging, segmentation, fragmentation, disk, multiprogramming.\nThis is a local command interface; it does not call an AI service.", false); }
 
     Editor open(Modules.Module module, String algorithm) {
         if (active != null) history.getChildren().remove(active.card);

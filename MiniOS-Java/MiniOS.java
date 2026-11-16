@@ -252,16 +252,16 @@ public class MiniOS extends JFrame {
         header.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         JPanel headerRow = new JPanel(new BorderLayout());
         headerRow.add(header, BorderLayout.CENTER);
-        JButton rubric = new JButton("Rubric / Demo Guide");
-        rubric.addActionListener(e -> {
-            JTextArea guide = new JTextArea(RubricGuide.TEXT, 28, 85);
+        JButton help = new JButton("Help");
+        help.addActionListener(e -> {
+            JTextArea guide = new JTextArea(AppHelp.TEXT, 28, 85);
             guide.setEditable(false);
             guide.setFont(MONO);
             guide.setCaretPosition(0);
             javax.swing.JOptionPane.showMessageDialog(this, new JScrollPane(guide),
-                "Rubric and presentation guide", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                "Mini OS Help", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         });
-        headerRow.add(rubric, BorderLayout.EAST);
+        headerRow.add(help, BorderLayout.EAST);
         add(headerRow, BorderLayout.NORTH);
 
         final CardLayout cards = new CardLayout();
