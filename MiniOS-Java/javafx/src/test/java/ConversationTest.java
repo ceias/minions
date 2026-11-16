@@ -38,6 +38,7 @@ public class ConversationTest {
         do { fx(()->running[0]=app.busy); if(!running[0]) return; Thread.sleep(20); } while(System.nanoTime()<until);
         fail("Simulation did not finish");
     }
+    @Test void auditedAlgorithmRegressions() { AuditRegressionTests.main(new String[0]); }
     @Test void everyModuleProducesRealResults() throws Exception {
         for(Modules.Module module:app.modules) {
             fx(()->{app.lastResult="";app.open(module,null).run();});

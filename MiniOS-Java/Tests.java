@@ -106,7 +106,7 @@ public class Tests {
         for (String a : Disk.ALGOS) got.append(a).append('=').append(Disk.movement(53, Disk.order(Q, 53, a, 200, true))).append(' ');
         check("Disk total head movement, all 6 algorithms", got.toString().trim(), "FCFS=640 SSTF=236 SCAN=331 C-SCAN=382 LOOK=299 C-LOOK=322");
 
-        // ---- Modules vs the output of the original Python program ----
+        // ---- Modules vs reference outputs (see testdata/README.md for corrected disk cases) ----
         List<String> lines = Files.readAllLines(Paths.get(args.length > 0 ? args[0] : "testdata/cases.txt"), StandardCharsets.UTF_8);
         for (int i = 0; i < lines.size(); i++) {
             if (!lines.get(i).startsWith("@@CASE ")) continue;
@@ -132,7 +132,7 @@ public class Tests {
             } catch (IllegalArgumentException e) {
                 res = "Invalid input: " + e.getMessage();
             }
-            check("Original Python output: " + title, res, want);
+            check("Reference output: " + title, res, want);
         }
 
         // ---- Every module, every sample button: runs without an error ----

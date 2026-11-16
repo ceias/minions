@@ -81,13 +81,13 @@ final class Memory {
         long ext = 0;
         StringBuilder fl = new StringBuilder();
         for (int b : free) { ext += blocks[b]; fl.append(fl.length() > 0 ? ", " : "").append("B").append(b + 1).append("(").append(blocks[b]).append(")"); }
-        int minWait = Integer.MAX_VALUE;
-        for (int w : waiting) minWait = Math.min(minWait, w);
+        List<Integer> fragmented = new ArrayList<Integer>();
+        for (int w : waiting) if (w <= ext) fragmented.add(w);
         StringBuilder sb = new StringBuilder(Util.table(new String[]{"Process", "Size", "Block", "Status", "Internal frag"}, rows));
         sb.append("\nTotal internal fragmentation: ").append(internal).append("\nFree (unused) blocks: ")
           .append(fl.length() == 0 ? "none" : fl.toString()).append("\nTotal free memory: ").append(ext).append('\n');
-        if (!waiting.isEmpty() && ext >= minWait)
-            sb.append("EXTERNAL FRAGMENTATION: enough total free memory exists but no single block fits process size(s) ").append(Util.list(waiting)).append(".\n");
+        if (!fragmented.isEmpty())
+            sb.append("EXTERNAL FRAGMENTATION: enough total free memory exists but no single block fits process size(s) ").append(Util.list(fragmented)).append(".\n");
         else sb.append("No external fragmentation problem detected.\n");
         return sb.toString();
     }

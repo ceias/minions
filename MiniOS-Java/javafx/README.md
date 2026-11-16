@@ -39,7 +39,7 @@ The first run requires Internet access to Maven Central to download JavaFX and b
 
 ## Validation
 
-`sh ./mvnw test` (Windows: `.\mvnw.cmd test`) launches the actual JavaFX scene using the test-only Monocle software renderer. It exercises every module's result path, command routing, persistent inputs and recovery after invalid input. These tests do not validate Windows-specific clipboard/file picker integration. On a normal run Maven uses your operating system's native JavaFX renderer, not Monocle.
+`sh ./mvnw test` (Windows: `.\mvnw.cmd test`) launches the actual JavaFX scene using the test-only Monocle software renderer. It exercises every module's result path, command routing, persistent inputs and recovery after invalid input, plus the 31 audit algorithm regressions. These tests do not validate Windows-specific clipboard/file picker integration. On a normal run Maven uses your operating system's native JavaFX renderer, not Monocle.
 
 The original suites are unchanged and remain available from the parent folder:
 
@@ -47,6 +47,7 @@ The original suites are unchanged and remain available from the parent folder:
 javac -d out *.java
 java -Djava.awt.headless=true -cp out Tests
 java -Djava.awt.headless=true -cp out RubricTests
+java -Djava.awt.headless=true -cp out AuditRegressionTests
 ```
 
 ## Project structure

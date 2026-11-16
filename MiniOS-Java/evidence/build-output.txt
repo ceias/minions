@@ -1,3 +1,8 @@
+warning: [options] bootstrap class path not set in conjunction with -source 8
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+4 warnings
 PASS  FCFS 24, 3, 3 (avg waiting 17)
 PASS  FCFS practice 5, 3, 8, 6 (7.25 / 12.75)
 PASS  SJF slide (avg waiting 4)
@@ -52,53 +57,55 @@ PASS  Deadlock: P1 to P4 are stuck
 PASS  Deadlock: recovery terminates P2
 PASS  Deadlock: safe example finishes P0 P2 P3 P4 P1
 PASS  Disk total head movement, all 6 algorithms
-PASS  Original Python output: paging: small
-PASS  Original Python output: paging: edge
-PASS  Original Python output: paging: dup
-PASS  Original Python output: paging: badtoken
-PASS  Original Python output: paging: neg
-PASS  Original Python output: seg: small
-PASS  Original Python output: seg: edge
-PASS  Original Python output: seg: badaddr
-PASS  Original Python output: seg: zero
-PASS  Original Python output: frag: small First Fit
-PASS  Original Python output: frag: edge First Fit
-PASS  Original Python output: frag: small Best Fit
-PASS  Original Python output: frag: edge Best Fit
-PASS  Original Python output: frag: small Worst Fit
-PASS  Original Python output: frag: edge Worst Fit
-PASS  Original Python output: frag: oneline
-PASS  Original Python output: disk: small FCFS Up
-PASS  Original Python output: disk: edge FCFS Up
-PASS  Original Python output: disk: small FCFS Down
-PASS  Original Python output: disk: edge FCFS Down
-PASS  Original Python output: disk: small SSTF Up
-PASS  Original Python output: disk: edge SSTF Up
-PASS  Original Python output: disk: small SSTF Down
-PASS  Original Python output: disk: edge SSTF Down
-PASS  Original Python output: disk: small SCAN Up
-PASS  Original Python output: disk: edge SCAN Up
-PASS  Original Python output: disk: small SCAN Down
-PASS  Original Python output: disk: edge SCAN Down
-PASS  Original Python output: disk: small C-SCAN Up
-PASS  Original Python output: disk: edge C-SCAN Up
-PASS  Original Python output: disk: small C-SCAN Down
-PASS  Original Python output: disk: edge C-SCAN Down
-PASS  Original Python output: disk: small LOOK Up
-PASS  Original Python output: disk: edge LOOK Up
-PASS  Original Python output: disk: small LOOK Down
-PASS  Original Python output: disk: edge LOOK Down
-PASS  Original Python output: disk: small C-LOOK Up
-PASS  Original Python output: disk: edge C-LOOK Up
-PASS  Original Python output: disk: small C-LOOK Down
-PASS  Original Python output: disk: edge C-LOOK Down
-PASS  Original Python output: disk: headbig
-PASS  Original Python output: disk: dupreq
-PASS  Original Python output: mp: small
-PASS  Original Python output: mp: edge
-PASS  Original Python output: mp: toobig
-PASS  Original Python output: mp: badline
-PASS  Original Python output: mp: gap
+PASS  Reference output: paging: small
+PASS  Reference output: paging: edge
+PASS  Reference output: paging: dup
+PASS  Reference output: paging: badtoken
+PASS  Reference output: paging: neg
+PASS  Reference output: seg: small
+PASS  Reference output: seg: edge
+PASS  Reference output: seg: badaddr
+PASS  Reference output: seg: zero
+PASS  Reference output: frag: small First Fit
+PASS  Reference output: frag: edge First Fit
+PASS  Reference output: frag: small Best Fit
+PASS  Reference output: frag: edge Best Fit
+PASS  Reference output: frag: small Worst Fit
+PASS  Reference output: frag: edge Worst Fit
+PASS  Reference output: frag: oneline
+PASS  Reference output: disk: small FCFS Up
+PASS  Reference output: disk: edge FCFS Up
+PASS  Reference output: disk: small FCFS Down
+PASS  Reference output: disk: edge FCFS Down
+PASS  Reference output: disk: small SSTF Up
+PASS  Reference output: disk: edge SSTF Up
+PASS  Reference output: disk: small SSTF Down
+PASS  Reference output: disk: edge SSTF Down
+PASS  Reference output: disk: small SCAN Up
+PASS  Reference output: disk: edge SCAN Up
+PASS  Reference output: disk: small SCAN Down
+PASS  Reference output: disk: edge SCAN Down
+PASS  Reference output: disk: small C-SCAN Up
+PASS  Reference output: disk: edge C-SCAN Up
+PASS  Reference output: disk: small C-SCAN Down
+PASS  Reference output: disk: edge C-SCAN Down
+PASS  Reference output: disk: small LOOK Up
+PASS  Reference output: disk: edge LOOK Up
+PASS  Reference output: disk: small LOOK Down
+PASS  Reference output: disk: edge LOOK Down
+PASS  Reference output: disk: small C-LOOK Up
+PASS  Reference output: disk: edge C-LOOK Up
+PASS  Reference output: disk: small C-LOOK Down
+PASS  Reference output: disk: edge C-LOOK Down
+PASS  Reference output: disk: headbig
+PASS  Reference output: disk: dupreq
+PASS  Reference output: mp: small
+PASS  Reference output: mp: edge
+PASS  Reference output: mp: toobig
+PASS  Reference output: mp: badline
+PASS  Reference output: mp: gap
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
 PASS  Window: CPU Scheduling / Small sample runs
 PASS  Window: CPU Scheduling / Edge sample runs
 PASS  Window: CPU Scheduling / Large sample runs
@@ -164,6 +171,8 @@ PASS  CPU Scheduling / Round robin / 3 input lines
 PASS  CPU Scheduling / Multilevel queue / 3 input lines
 PASS  CPU Scheduling / Multilevel feedback queue / 3 input lines
 PASS  CPU Scheduling sample
+Fontconfig error: No writable cache directories
+Fontconfig error: No writable cache directories
 PASS  CPU Scheduling rejects blank input
 PASS  Page Replacement / FIFO / 1 input lines
 PASS  Page Replacement / Optimal (OPT) / 1 input lines
@@ -277,3 +286,36 @@ PASS  Fixed partition internal waste 100-60=40
 PASS  Multiprogramming two equal jobs fully utilize CPU
 
 138/138 rubric checks passed
+PASS Disk LOOK down serves request at current head first | expected [50, 40], actual [50, 40]; expected movement 10, actual 10
+PASS Banker handles accepted large resource totals | all three have Need=0; actual SAFE
+PASS Multiprogramming handles accepted long duration | Total time: 3000000000;CPU utilization: 100.0%;Average memory utilization: 66.7%;Maximum programs in memory at once: 3;
+PASS Fragmentation explains which blocked process fits aggregate free memory | free=100; only 80 fits aggregate memory, but reported: EXTERNAL FRAGMENTATION: enough total free memory exists but no single block fits process size(s) [80].
+PASS SCAN downward equal-head requests first | [50, 50, 40, 0, 60]
+PASS SCAN upward equal-head requests first | [50, 50, 60, 99, 40]
+PASS SCAN all requests at head need zero movement | [50, 50]
+PASS C-SCAN downward equal-head requests first | [50, 50, 40, 0, 99, 60]
+PASS C-SCAN upward equal-head requests first | [50, 50, 60, 99, 0, 40]
+PASS C-SCAN all requests at head need zero movement | [50, 50]
+PASS LOOK downward equal-head requests first | [50, 50, 40, 60]
+PASS LOOK upward equal-head requests first | [50, 50, 60, 40]
+PASS LOOK all requests at head need zero movement | [50, 50]
+PASS C-LOOK downward equal-head requests first | [50, 50, 40, 60]
+PASS C-LOOK upward equal-head requests first | [50, 50, 60, 40]
+PASS C-LOOK all requests at head need zero movement | [50, 50]
+PASS Banker resource-request path uses wide totals | Request P3 1: GRANTED. New safe sequence: P1 -> P2 -> P3
+
+PASS Banker unsafe state stays unsafe | circular unmet unit needs
+PASS Multiprogramming jumps large idle gap | one job at time1,000,000,000
+PASS Memory-time area larger than long remains valid | ten sequential billion-tick jobs
+PASS Fragmentation distinguishes total shortage | 100 total cannot satisfy 200
+PASS C-SCAN boundary-head manual movement | 0 served immediately, then wrap0->99 and descend99->50: 99+49=148
+PASS C-LOOK boundary-head manual movement | 0 served immediately, then wrap0->99 and descend99->50: 99+49=148
+PASS CPU 128 dynamic processes | last completion 128
+PASS Banker 128 processes and 32 resource types | expected safe, zero allocation and unit need
+PASS Paging 128 mapping rows | page127 -> frame254, physical1016
+PASS Segmentation 128 segments | base12700+offset9
+PASS Replacement 2048 references and 64 frames | faults=16, hits=2032
+PASS Fragmentation 128 blocks and processes | 128*(64-32)=4096
+PASS Disk FCFS 128 requests | ascending0..127, expected127
+PASS Multiprogramming 128 jobs | expected duration128, peak128
+Audit regressions: 31 passed, 0 failed; existing test suite results are separate.

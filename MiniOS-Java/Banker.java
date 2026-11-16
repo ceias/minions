@@ -8,16 +8,26 @@ final class Banker {
     /** Safe sequence (indexes), or null if the state is unsafe. Scans the processes in order, repeatedly. */
     static List<Integer> safeSeq(int[] avail, int[][] alloc, int[][] need) {
         int n = alloc.length;
-        int[] work = avail.clone();
+        // Work is a total across processes and can exceed the per-cell int range.
+        long[] work = new long[avail.length];
+        for (int j = 0; j < avail.length; j++) work[j] = avail[j];
         boolean[] done = new boolean[n];
         List<Integer> seq = new ArrayList<Integer>();
         boolean progress = true;
         while (progress) {
             progress = false;
             for (int i = 0; i < n; i++)
-                if (!done[i] && Util.le(need[i], work)) { work = Util.add(work, alloc[i]); done[i] = true; seq.add(i); progress = true; }
+                if (!done[i] && fits(need[i], work)) {
+                    for (int j = 0; j < work.length; j++) work[j] += alloc[i][j];
+                    done[i] = true; seq.add(i); progress = true;
+                }
         }
         return seq.size() == n ? seq : null;
+    }
+
+    private static boolean fits(int[] need, long[] work) {
+        for (int j = 0; j < need.length; j++) if (need[j] > work[j]) return false;
+        return true;
     }
 
     private static String seqText(List<String> pids, List<Integer> seq) {

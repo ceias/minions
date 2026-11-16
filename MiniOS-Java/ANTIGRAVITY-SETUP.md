@@ -16,7 +16,7 @@ This is a Java Swing desktop application. No Maven, Gradle, web server, API key 
    - Windows PowerShell: `cmd /c build.bat`
    - Windows Command Prompt: `build.bat`
    - macOS/Linux: `sh build.sh`
-   The scripts stop if compilation or either test suite fails. Expected summaries: `137/137 tests passed` and `138/138 rubric checks passed`.
+   The scripts stop if compilation or any test suite fails. Expected summaries: `137/137 tests passed`, `138/138 rubric checks passed`, and `Audit regressions: 31 passed, 0 failed`.
 6. Launch the desktop window:
    ```text
    java -jar MiniOS.jar

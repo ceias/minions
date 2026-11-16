@@ -31,8 +31,10 @@ final class Multi {
         }
         if (wait.isEmpty()) throw new IllegalArgumentException("Enter at least one program.");
         wait.sort(new Comparator<Job>() { public int compare(Job x, Job y) { return Integer.compare(x.a, y.a); } });
-        int t = 0, busy = 0, peak = 0, mem = 0;
-        long area = 0;
+        long t = 0, busy = 0;
+        int peak = 0, mem = 0;
+        // Memory-time area may exceed even long for many accepted long jobs.
+        double area = 0;
         List<String> ready = new ArrayList<String>(), log = new ArrayList<String>();
         Map<String, Integer> rem = new HashMap<String, Integer>(), memof = new HashMap<String, Integer>();
         while (!wait.isEmpty() || !ready.isEmpty()) {
@@ -42,11 +44,15 @@ final class Multi {
                     log.add(String.format("t=%-4d ADMIT  %s  memory in use %d/%d", t, j.id, mem, total));
                 }
             peak = Math.max(peak, ready.size());
-            if (ready.isEmpty()) { t++; continue; }
+            if (ready.isEmpty()) {
+                // With no resident jobs, jump directly to the next arrival.
+                t = wait.get(0).a;
+                continue;
+            }
             String p = ready.remove(0);
             int run = Math.min(q, rem.get(p));
             log.add(String.format("t=%-4d RUN    %s  for %d  (degree of multiprogramming %d)", t, p, run, ready.size() + 1));
-            t += run; busy += run; area += (long) mem * run; rem.put(p, rem.get(p) - run);
+            t += run; busy += run; area += (double) mem * run; rem.put(p, rem.get(p) - run);
             if (rem.get(p) == 0) { mem -= memof.get(p); log.add(String.format("t=%-4d FINISH %s  memory in use %d/%d", t, p, mem, total)); }
             else ready.add(p);
         }

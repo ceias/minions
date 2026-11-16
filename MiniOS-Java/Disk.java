@@ -27,7 +27,13 @@ final class Disk {
         int[] r = reqs.clone();
         Arrays.sort(r);
         List<Integer> lo = new ArrayList<Integer>(), hi = new ArrayList<Integer>();
-        for (int x : r) { if (x < head) lo.add(x); else hi.add(x); }
+        // Requests already under the head require no movement in either direction.
+        for (int x : r) {
+            if (x == head) o.add(x);
+            else if (x < head) lo.add(x);
+            else hi.add(x);
+        }
+        if (lo.isEmpty() && hi.isEmpty()) return o;
         Collections.reverse(lo);   // lo: nearest first
         List<Integer> loR = new ArrayList<Integer>(lo), hiR = new ArrayList<Integer>(hi);
         Collections.reverse(loR); Collections.reverse(hiR);

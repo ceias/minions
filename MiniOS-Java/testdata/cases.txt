@@ -318,9 +318,9 @@ Algorithm | Total movement
 FCFS      | 148           
 SSTF      | 99            
 SCAN      | 99            
-C-SCAN    | 198           
+C-SCAN    | 148           
 LOOK      | 99            
-C-LOOK    | 198           
+C-LOOK    | 148           
 @@END
 @@CASE disk: small SSTF Up
 mod=disk
@@ -410,9 +410,9 @@ Algorithm | Total movement
 FCFS      | 148           
 SSTF      | 99            
 SCAN      | 99            
-C-SCAN    | 198           
+C-SCAN    | 148           
 LOOK      | 99            
-C-LOOK    | 198           
+C-LOOK    | 148           
 @@END
 @@CASE disk: small SCAN Up
 mod=disk
@@ -502,9 +502,9 @@ Algorithm | Total movement
 FCFS      | 148           
 SSTF      | 99            
 SCAN      | 99            
-C-SCAN    | 198           
+C-SCAN    | 148           
 LOOK      | 99            
-C-LOOK    | 198           
+C-LOOK    | 148           
 @@END
 @@CASE disk: small C-SCAN Up
 mod=disk
@@ -585,8 +585,8 @@ opt Algorithm=C-SCAN
 0 99 50
 --OK
 C-SCAN, head starts at 0
-Service order: 0 -> 0 -> 99 -> 99 -> 50 -> 0
-Total head movement: 198 cylinders
+Service order: 0 -> 0 -> 0 -> 99 -> 99 -> 50
+Total head movement: 148 cylinders
 
 Comparison:
 Algorithm | Total movement
@@ -594,9 +594,9 @@ Algorithm | Total movement
 FCFS      | 148           
 SSTF      | 99            
 SCAN      | 99            
-C-SCAN    | 198           
+C-SCAN    | 148           
 LOOK      | 99            
-C-LOOK    | 198           
+C-LOOK    | 148           
 @@END
 @@CASE disk: small LOOK Up
 mod=disk
@@ -686,9 +686,9 @@ Algorithm | Total movement
 FCFS      | 148           
 SSTF      | 99            
 SCAN      | 99            
-C-SCAN    | 198           
+C-SCAN    | 148           
 LOOK      | 99            
-C-LOOK    | 198           
+C-LOOK    | 148           
 @@END
 @@CASE disk: small C-LOOK Up
 mod=disk
@@ -769,8 +769,8 @@ opt Algorithm=C-LOOK
 0 99 50
 --OK
 C-LOOK, head starts at 0
-Service order: 0 -> 99 -> 50 -> 0
-Total head movement: 198 cylinders
+Service order: 0 -> 0 -> 99 -> 50
+Total head movement: 148 cylinders
 
 Comparison:
 Algorithm | Total movement
@@ -778,9 +778,9 @@ Algorithm | Total movement
 FCFS      | 148           
 SSTF      | 99            
 SCAN      | 99            
-C-SCAN    | 198           
+C-SCAN    | 148           
 LOOK      | 99            
-C-LOOK    | 198           
+C-LOOK    | 148           
 @@END
 @@CASE disk: headbig
 mod=disk

@@ -23,7 +23,7 @@ Deadlock Detection is an additional module, separate from the eight required are
 
 ## C. Accuracy and testing — 15 points
 
-Run both test suites from this folder. `Tests` has 137 existing known-answer, reference-output, validation and sample-panel checks. `RubricTests` has 138 additional checks covering every algorithm choice with Small/Large/Edge samples, blank inputs, more than 20 frames, negative numeric pages, a CPU burst beyond the old cutoff, indented comments, and manual answers. Sample-size checks establish execution, while known-answer checks verify specific outputs; they are not exhaustive proofs of every algorithm.
+Run all three algorithm test suites from this folder. `Tests` has 137 existing known-answer, reference-output, validation and sample-panel checks. `RubricTests` has 138 additional checks covering every algorithm choice with Small/Large/Edge samples, blank inputs, more than 20 frames, negative numeric pages, a CPU burst beyond the old cutoff, indented comments, and manual answers. `AuditRegressionTests` adds 31 known-answer regressions covering equal-head disk requests, large resource totals, long job durations, fragmentation explanations, and larger dynamic datasets across all eight required modules. Six disk reference fixtures were corrected using manual totals, as documented in `testdata/README.md`. Sample-size checks establish execution, while known-answer checks verify specific outputs; they are not exhaustive proofs of every algorithm.
 
 Manual examples for demonstration:
 
@@ -66,4 +66,4 @@ Be prepared to explain:
 
 ## Before submission
 
-Record group/member names; confirm the class algorithm list; rerun both test suites; launch the GUI locally; save Small/Large outputs and screenshots; verify the rebuilt JAR runs; rehearse the demo. Presentation performance and independent understanding require your own preparation.
+Record group/member names; confirm the class algorithm list; rerun all test suites; launch the GUI locally; save Small/Large outputs and screenshots; verify the rebuilt JAR runs; rehearse the demo. Presentation performance and independent understanding require your own preparation.

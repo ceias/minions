@@ -1,0 +1,33 @@
+PASS Disk LOOK down serves request at current head first | expected [50, 40], actual [50, 40]; expected movement 10, actual 10
+PASS Banker handles accepted large resource totals | all three have Need=0; actual SAFE
+PASS Multiprogramming handles accepted long duration | Total time: 3000000000;CPU utilization: 100.0%;Average memory utilization: 66.7%;Maximum programs in memory at once: 3;
+PASS Fragmentation explains which blocked process fits aggregate free memory | free=100; only 80 fits aggregate memory, but reported: EXTERNAL FRAGMENTATION: enough total free memory exists but no single block fits process size(s) [80].
+PASS SCAN downward equal-head requests first | [50, 50, 40, 0, 60]
+PASS SCAN upward equal-head requests first | [50, 50, 60, 99, 40]
+PASS SCAN all requests at head need zero movement | [50, 50]
+PASS C-SCAN downward equal-head requests first | [50, 50, 40, 0, 99, 60]
+PASS C-SCAN upward equal-head requests first | [50, 50, 60, 99, 0, 40]
+PASS C-SCAN all requests at head need zero movement | [50, 50]
+PASS LOOK downward equal-head requests first | [50, 50, 40, 60]
+PASS LOOK upward equal-head requests first | [50, 50, 60, 40]
+PASS LOOK all requests at head need zero movement | [50, 50]
+PASS C-LOOK downward equal-head requests first | [50, 50, 40, 60]
+PASS C-LOOK upward equal-head requests first | [50, 50, 60, 40]
+PASS C-LOOK all requests at head need zero movement | [50, 50]
+PASS Banker resource-request path uses wide totals | Request P3 1: GRANTED. New safe sequence: P1 -> P2 -> P3
+
+PASS Banker unsafe state stays unsafe | circular unmet unit needs
+PASS Multiprogramming jumps large idle gap | one job at time1,000,000,000
+PASS Memory-time area larger than long remains valid | ten sequential billion-tick jobs
+PASS Fragmentation distinguishes total shortage | 100 total cannot satisfy 200
+PASS C-SCAN boundary-head manual movement | 0 served immediately, then wrap0->99 and descend99->50: 99+49=148
+PASS C-LOOK boundary-head manual movement | 0 served immediately, then wrap0->99 and descend99->50: 99+49=148
+PASS CPU 128 dynamic processes | last completion 128
+PASS Banker 128 processes and 32 resource types | expected safe, zero allocation and unit need
+PASS Paging 128 mapping rows | page127 -> frame254, physical1016
+PASS Segmentation 128 segments | base12700+offset9
+PASS Replacement 2048 references and 64 frames | faults=16, hits=2032
+PASS Fragmentation 128 blocks and processes | 128*(64-32)=4096
+PASS Disk FCFS 128 requests | ascending0..127, expected127
+PASS Multiprogramming 128 jobs | expected duration128, peak128
+Audit regressions: 31 passed, 0 failed; existing test suite results are separate.

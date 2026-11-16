@@ -52,53 +52,53 @@ PASS  Deadlock: P1 to P4 are stuck
 PASS  Deadlock: recovery terminates P2
 PASS  Deadlock: safe example finishes P0 P2 P3 P4 P1
 PASS  Disk total head movement, all 6 algorithms
-PASS  Original Python output: paging: small
-PASS  Original Python output: paging: edge
-PASS  Original Python output: paging: dup
-PASS  Original Python output: paging: badtoken
-PASS  Original Python output: paging: neg
-PASS  Original Python output: seg: small
-PASS  Original Python output: seg: edge
-PASS  Original Python output: seg: badaddr
-PASS  Original Python output: seg: zero
-PASS  Original Python output: frag: small First Fit
-PASS  Original Python output: frag: edge First Fit
-PASS  Original Python output: frag: small Best Fit
-PASS  Original Python output: frag: edge Best Fit
-PASS  Original Python output: frag: small Worst Fit
-PASS  Original Python output: frag: edge Worst Fit
-PASS  Original Python output: frag: oneline
-PASS  Original Python output: disk: small FCFS Up
-PASS  Original Python output: disk: edge FCFS Up
-PASS  Original Python output: disk: small FCFS Down
-PASS  Original Python output: disk: edge FCFS Down
-PASS  Original Python output: disk: small SSTF Up
-PASS  Original Python output: disk: edge SSTF Up
-PASS  Original Python output: disk: small SSTF Down
-PASS  Original Python output: disk: edge SSTF Down
-PASS  Original Python output: disk: small SCAN Up
-PASS  Original Python output: disk: edge SCAN Up
-PASS  Original Python output: disk: small SCAN Down
-PASS  Original Python output: disk: edge SCAN Down
-PASS  Original Python output: disk: small C-SCAN Up
-PASS  Original Python output: disk: edge C-SCAN Up
-PASS  Original Python output: disk: small C-SCAN Down
-PASS  Original Python output: disk: edge C-SCAN Down
-PASS  Original Python output: disk: small LOOK Up
-PASS  Original Python output: disk: edge LOOK Up
-PASS  Original Python output: disk: small LOOK Down
-PASS  Original Python output: disk: edge LOOK Down
-PASS  Original Python output: disk: small C-LOOK Up
-PASS  Original Python output: disk: edge C-LOOK Up
-PASS  Original Python output: disk: small C-LOOK Down
-PASS  Original Python output: disk: edge C-LOOK Down
-PASS  Original Python output: disk: headbig
-PASS  Original Python output: disk: dupreq
-PASS  Original Python output: mp: small
-PASS  Original Python output: mp: edge
-PASS  Original Python output: mp: toobig
-PASS  Original Python output: mp: badline
-PASS  Original Python output: mp: gap
+PASS  Reference output: paging: small
+PASS  Reference output: paging: edge
+PASS  Reference output: paging: dup
+PASS  Reference output: paging: badtoken
+PASS  Reference output: paging: neg
+PASS  Reference output: seg: small
+PASS  Reference output: seg: edge
+PASS  Reference output: seg: badaddr
+PASS  Reference output: seg: zero
+PASS  Reference output: frag: small First Fit
+PASS  Reference output: frag: edge First Fit
+PASS  Reference output: frag: small Best Fit
+PASS  Reference output: frag: edge Best Fit
+PASS  Reference output: frag: small Worst Fit
+PASS  Reference output: frag: edge Worst Fit
+PASS  Reference output: frag: oneline
+PASS  Reference output: disk: small FCFS Up
+PASS  Reference output: disk: edge FCFS Up
+PASS  Reference output: disk: small FCFS Down
+PASS  Reference output: disk: edge FCFS Down
+PASS  Reference output: disk: small SSTF Up
+PASS  Reference output: disk: edge SSTF Up
+PASS  Reference output: disk: small SSTF Down
+PASS  Reference output: disk: edge SSTF Down
+PASS  Reference output: disk: small SCAN Up
+PASS  Reference output: disk: edge SCAN Up
+PASS  Reference output: disk: small SCAN Down
+PASS  Reference output: disk: edge SCAN Down
+PASS  Reference output: disk: small C-SCAN Up
+PASS  Reference output: disk: edge C-SCAN Up
+PASS  Reference output: disk: small C-SCAN Down
+PASS  Reference output: disk: edge C-SCAN Down
+PASS  Reference output: disk: small LOOK Up
+PASS  Reference output: disk: edge LOOK Up
+PASS  Reference output: disk: small LOOK Down
+PASS  Reference output: disk: edge LOOK Down
+PASS  Reference output: disk: small C-LOOK Up
+PASS  Reference output: disk: edge C-LOOK Up
+PASS  Reference output: disk: small C-LOOK Down
+PASS  Reference output: disk: edge C-LOOK Down
+PASS  Reference output: disk: headbig
+PASS  Reference output: disk: dupreq
+PASS  Reference output: mp: small
+PASS  Reference output: mp: edge
+PASS  Reference output: mp: toobig
+PASS  Reference output: mp: badline
+PASS  Reference output: mp: gap
 PASS  Window: CPU Scheduling / Small sample runs
 PASS  Window: CPU Scheduling / Edge sample runs
 PASS  Window: CPU Scheduling / Large sample runs
