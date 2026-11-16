@@ -1,0 +1,21 @@
+.root { -fx-font-family: "Consolas", "DejaVu Sans Mono", monospace; -fx-font-size: 12px; -fx-text-fill: #4a1d2a; -fx-background-color: #edc8b0; -fx-padding: 12; }
+.window { -fx-background-color: #fff2d2; -fx-border-color: #4a1d2a; -fx-border-width: 4; -fx-effect: dropshadow(three-pass-box, #ad7d73, 0, 0, 5, 5); }
+.title-bar { -fx-background-color: #c68c81; -fx-padding: 6 12; -fx-border-color: #4a1d2a; -fx-border-width: 0 0 4 0; }
+.window-title { -fx-text-fill: #fff7df; -fx-font-size: 16px; -fx-font-weight: bold; }
+.label { -fx-text-fill: #4a1d2a; }
+.button { -fx-background-color: #fff8e7; -fx-background-radius: 0; -fx-border-color: #c68c81; -fx-border-width: 2; -fx-padding: 6 10; -fx-text-fill: #4a1d2a; -fx-font-weight: bold; -fx-cursor: hand; }
+.button:hover { -fx-background-color: #f9d9b4; -fx-border-color: #4a1d2a; }
+.button:focused { -fx-border-color: #4a1d2a; -fx-effect: dropshadow(three-pass-box, #c68c81, 0, 0, 2, 2); }
+.button:disabled { -fx-opacity: 0.5; }
+.primary { -fx-background-color: #f4806b; -fx-border-color: #4a1d2a; }
+.icon-button { -fx-font-size: 26px; -fx-pref-width: 54; -fx-pref-height: 48; -fx-border-color: #4a1d2a; }
+.conversation { -fx-background: #fffdf6; -fx-background-color: #fffdf6; -fx-border-color: #cd9185; -fx-border-width: 3; }
+.scroll-pane > .viewport { -fx-background-color: #fffdf6; }
+.assistant-bubble, .user-bubble { -fx-padding: 12; -fx-background-color: #fff2d2; -fx-border-color: #4a1d2a; -fx-border-width: 2; }
+.user-bubble { -fx-background-color: #f9d9ce; }
+.input-card, .result-card { -fx-padding: 14; -fx-background-color: #fff6df; -fx-border-color: #c68c81; -fx-border-width: 2; }
+.group-label { -fx-text-fill: #8a5a4a; -fx-font-weight: bold; }
+.text-field, .text-area, .combo-box { -fx-background-color: #fffdf6; -fx-background-radius: 0; -fx-border-color: #c68c81; -fx-border-width: 2; -fx-text-fill: #4a1d2a; }
+.text-area .content { -fx-background-color: #fffdf6; -fx-background-radius: 0; }
+.text-field { -fx-padding: 10; }
+.results { -fx-font-family: "Consolas", "DejaVu Sans Mono", monospace; }

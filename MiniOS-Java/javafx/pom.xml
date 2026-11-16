@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.minios</groupId><artifactId>mini-os-fx</artifactId><version>1.0.0</version>
+  <properties><maven.compiler.source>21</maven.compiler.source><maven.compiler.target>21</maven.compiler.target><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding></properties>
+  <dependencies>
+    <dependency><groupId>org.openjfx</groupId><artifactId>javafx-controls</artifactId><version>21.0.2</version></dependency>
+    <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.11.4</version><scope>test</scope></dependency>
+    <dependency><groupId>org.testfx</groupId><artifactId>openjfx-monocle</artifactId><version>21.0.2</version><scope>test</scope></dependency>
+  </dependencies>
+  <build>
+    <!-- Share the original engines; keep JavaFX out of the Swing wildcard build. -->
+    <sourceDirectory>${project.basedir}/..</sourceDirectory>
+    <plugins>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.13.0</version><configuration><includes><include>*.java</include><include>javafx/src/main/java/*.java</include></includes></configuration></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.5.2</version><configuration><systemPropertyVariables><glass.platform>Monocle</glass.platform><monocle.platform>Headless</monocle.platform><headless.geometry>1600x1200-32</headless.geometry><javafx.cachedir>${project.build.directory}/javafx-cache</javafx.cachedir><prism.order>sw</prism.order></systemPropertyVariables></configuration></plugin>
+      <plugin><groupId>org.openjfx</groupId><artifactId>javafx-maven-plugin</artifactId><version>0.0.8</version><configuration><mainClass>MiniOSFX</mainClass></configuration></plugin>
+    </plugins>
+  </build>
+</project>

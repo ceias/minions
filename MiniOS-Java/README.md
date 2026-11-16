@@ -40,3 +40,7 @@ the output of the original Python OS Simulator (`testdata/cases.txt`), agreement
 ## Rubric-integrated edition
 
 Start with [Antigravity setup](ANTIGRAVITY-SETUP.md), then read [rubric coverage and presentation guide](RUBRIC-COVERAGE.md). The app also has a **Rubric / Demo Guide** button. Build with JDK 21: `sh build.sh` (macOS/Linux), or `cmd /c build.bat` (Windows). These scripts run the 137 original tests and 138 additional rubric checks before packaging the JAR. The former frame cap and silent CPU cutoff have been removed.
+
+## New: JavaFX frog chat interface
+
+For the conversational interface using your supplied pixel artwork, follow [JavaFX / Antigravity setup](javafx/README.md). Requires **JDK 21**; the Maven Wrapper downloads Maven automatically. From `MiniOS-Java/javafx` on Windows, run `.\mvnw.cmd test`, then `.\mvnw.cmd javafx:run`. On macOS/Linux use `sh ./mvnw test`, then `sh ./mvnw javafx:run`. The root JAR and original build/run scripts still launch Swing.

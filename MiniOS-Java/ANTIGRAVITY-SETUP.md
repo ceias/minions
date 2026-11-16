@@ -45,3 +45,7 @@ If Antigravity offers a Java language/debug extension, install it and select the
 - **Results look unchanged after editing:** rerun the build before launching the JAR.
 - **Large simulations take time:** CPU scheduling stores each tick; page replacement stores frame snapshots. Dataset size is bounded by available memory and computation, not a fixed number of rows. Use moderate bursts for large process-count demos.
 - **Windows SmartScreen or blocked download:** use your system's normal trusted download/unblock process; the application is an unsigned student JAR.
+
+## JavaFX conversation interface
+
+The new frog/bunny interface has a separate [JavaFX setup guide](javafx/README.md). Install JDK 21, open `MiniOS-Java/javafx`, then run `.\mvnw.cmd test` and `.\mvnw.cmd javafx:run` on Windows. The included wrapper downloads Maven automatically. The instructions above and `MiniOS.jar` refer to the original Swing interface.
