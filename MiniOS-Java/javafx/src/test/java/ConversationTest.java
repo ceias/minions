@@ -38,6 +38,44 @@ public class ConversationTest {
         do { fx(()->running[0]=app.busy); if(!running[0]) return; Thread.sleep(20); } while(System.nanoTime()<until);
         fail("Simulation did not finish");
     }
+    @Test void advancedCpuShortcutAndExecution() throws Exception {
+        try {
+            fx(() -> {
+                app.advancedCpu.set(false);
+                app.route("srtf");
+                app.active.input.setText("CUSTOM 0 3");
+                javafx.scene.control.ComboBox<?> algorithms = (javafx.scene.control.ComboBox<?>)app.active.controls.get("Algorithm");
+                assertEquals(6, algorithms.getItems().size());
+                assertFalse(app.active.controls.get(Modules.Q0).isVisible());
+                assertEquals(2, app.stage.getScene().getRoot().lookupAll(".cpu-advanced-algorithm").size());
+                for (javafx.scene.Node node : app.stage.getScene().getRoot().lookupAll(".cpu-advanced-algorithm")) {
+                    assertFalse(node.isVisible()); assertFalse(node.isManaged());
+                }
+                app.route("mlq");
+                assertEquals(Cpu.NAMES[2], algorithms.getValue());
+                app.stage.getScene().getAccelerators().get(MiniOSFX.ADVANCED_CPU_SHORTCUT).run();
+                assertEquals(8, algorithms.getItems().size());
+                assertTrue(app.active.controls.get(Modules.Q0).isVisible());
+                assertTrue(app.active.controls.get(Modules.Q1).isManaged());
+                assertEquals("CUSTOM 0 3", app.active.input.getText());
+                for (javafx.scene.Node node : app.stage.getScene().getRoot().lookupAll(".cpu-advanced-algorithm")) {
+                    assertTrue(node.isVisible()); assertTrue(node.isManaged());
+                }
+                app.route("run mlfq");
+            });
+            waitForRun();
+            fx(() -> {
+                assertTrue(app.lastResult.contains("CUSTOM"));
+                assertTrue(app.lastResult.contains("Multilevel feedback"));
+                app.active.set(Modules.Q0, "");
+                app.stage.getScene().getAccelerators().get(MiniOSFX.ADVANCED_CPU_SHORTCUT).run();
+                assertEquals(Cpu.NAMES[0], app.active.options().get("Algorithm"));
+                assertEquals("8", app.active.options().get(Modules.Q0));
+                assertFalse(app.active.controls.get(Modules.Q1).isVisible());
+                assertEquals("CUSTOM 0 3", app.active.input.getText());
+            });
+        } finally { fx(() -> app.advancedCpu.set(false)); }
+    }
     @Test void auditedAlgorithmRegressions() { AuditRegressionTests.main(new String[0]); }
     @Test void everyModuleProducesRealResults() throws Exception {
         for(Modules.Module module:app.modules) {

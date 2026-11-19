@@ -28,6 +28,7 @@ The first run requires Internet access to Maven Central to download JavaFX and b
 
 ## Controls
 
+- MLQ and MLFQ start hidden in the JavaFX interface. Press **Ctrl+Shift+M** (macOS: **Command+Shift+M**) while the app is focused to show or hide their buttons, dropdown entries and MLFQ settings. No visible toggle or banner is added. Hiding them switches a selected multilevel algorithm to FCFS and keeps your process input. Visibility resets to hidden when you restart. Commands for these algorithms also require them to be shown. Existing result history is retained.
 - Algorithm buttons open editable cards with all original options and variable-length input.
 - Small, Large and Edge buttons load the existing sample datasets. A new module starts with its Small sample, clearly labeled. Your edits persist when switching modules.
 - **Run simulation** uses the actual module runner on a background thread. One simulation runs at a time. Large tick-based workloads still consume memory and CPU.

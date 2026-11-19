@@ -3,6 +3,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +20,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 
@@ -25,6 +31,9 @@ public class MiniOSFX extends Application {
     final VBox history = new VBox(12);
     final ScrollPane chat = new ScrollPane(history);
     final TextField command = new TextField();
+    final BooleanProperty advancedCpu = new SimpleBooleanProperty(false);
+    static final KeyCodeCombination ADVANCED_CPU_SHORTCUT = new KeyCodeCombination(
+        KeyCode.M, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN);
     final Label status = new Label("Ready · Choose a module or type help");
     final List<Modules.Module> modules = Modules.all();
     final Map<String, Editor> editors = new LinkedHashMap<>();
@@ -55,6 +64,7 @@ public class MiniOSFX extends Application {
         center.setPadding(new Insets(18));
         frame.setCenter(center);
         Scene scene = new Scene(new StackPane(frame), 1180, 850);
+        scene.getAccelerators().put(ADVANCED_CPU_SHORTCUT, () -> advancedCpu.set(!advancedCpu.get()));
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/mini-os.css")).toExternalForm());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Mini OS · Conversational Simulator");
@@ -112,6 +122,10 @@ public class MiniOSFX extends Application {
 
     private VBox selectors() {
         VBox groups = new VBox(6);
+        advancedCpu.addListener((obs, oldValue, shown) -> {
+            Editor cpu = editors.get("CPU Scheduling");
+            if (cpu != null) cpu.refreshCpuAlgorithms();
+        });
         String[][] labels = {{"FCFS (FIFO)", "SJF", "SRTF", "Priority", "Preemptive priority", "Round robin", "MLQ", "MLFQ"},
             {"FIFO", "Optimal", "NRU", "Second chance", "CLOCK", "NFU", "LRU", "Random", "Working set"}};
         for (int g=0; g<2; g++) {
@@ -119,7 +133,13 @@ public class MiniOSFX extends Application {
             Modules.Module m = modules.get(g);
             for (int i=0; i<labels[g].length; i++) {
                 final String algorithm = m.fields[0].choices[i];
-                row.getChildren().add(button(labels[g][i], () -> open(m, algorithm)));
+                Button choice = button(labels[g][i], () -> open(m, algorithm));
+                if (g == 0 && isMultilevel(algorithm)) {
+                    choice.getStyleClass().add("cpu-advanced-algorithm");
+                    choice.visibleProperty().bind(advancedCpu);
+                    choice.managedProperty().bind(advancedCpu);
+                }
+                row.getChildren().add(choice);
             }
             groups.getChildren().addAll(groupLabel(g==0 ? "CPU scheduling" : "Page replacement"), row);
         }
@@ -130,6 +150,10 @@ public class MiniOSFX extends Application {
         return groups;
     }
 
+    private boolean isMultilevel(String algorithm) {
+        String id = Cpu.idOf(algorithm);
+        return "mlq".equals(id) || "mlfq".equals(id);
+    }
     private Label groupLabel(String text) { Label l = new Label(text); l.getStyleClass().add("group-label"); return l; }
     private HBox composer() {
         command.setPromptText("Type a command, e.g. run srtf, run lru, banker, help");
@@ -166,7 +190,8 @@ public class MiniOSFX extends Application {
     Editor open(Modules.Module module, String algorithm) {
         if (active != null) history.getChildren().remove(active.card);
         active = editors.computeIfAbsent(module.name, k -> new Editor(module));
-        if (algorithm != null) active.set("Algorithm", algorithm);
+        if (algorithm != null) active.set("Algorithm",
+            isMultilevel(algorithm) && !advancedCpu.get() ? Cpu.NAMES[0] : algorithm);
         history.getChildren().add(active.card);
         status.setText("Editing " + module.name + " · Small sample loaded initially; change any input");
         scroll(); return active;
@@ -190,6 +215,10 @@ public class MiniOSFX extends Application {
         for (int group=0; group<2; group++) {
             String[] keys = group==0 ? cpu : pages;
             for (int i=0; i<keys.length; i++) if (keys[i].equals(key)) {
+                if (group == 0 && isMultilevel(keys[i]) && !advancedCpu.get()) {
+                    bubble("Use the advanced CPU keyboard shortcut to enable this algorithm.", false);
+                    return;
+                }
                 Editor e = open(modules.get(group), modules.get(group).fields[0].choices[i]); if (run) e.run(); return;
             }
         }
@@ -210,6 +239,9 @@ public class MiniOSFX extends Application {
             module=m; card.getStyleClass().add("input-card");
             Label title=groupLabel(m.name + " · EDITABLE INPUT");
             Label hint=new Label(m.hint + "\n" + m.how); hint.setWrapText(true);
+            if (m.name.equals("CPU Scheduling")) hint.textProperty().bind(Bindings.when(advancedCpu)
+                .then(m.hint + "\n" + m.how)
+                .otherwise("One process per line: PID arrival burst [priority]. Lower priority numbers run first.\n" + m.how));
             GridPane fields=new GridPane(); fields.setHgap(12); fields.setVgap(8);
             ColumnConstraints valueColumn=new ColumnConstraints(); valueColumn.setHgrow(Priority.ALWAYS);
             fields.getColumnConstraints().addAll(new ColumnConstraints(), valueColumn);
@@ -219,14 +251,36 @@ public class MiniOSFX extends Application {
                 if (f.choices != null) { ComboBox<String> cb=new ComboBox<>(); cb.getItems().addAll(f.choices); cb.setValue(f.def); cb.setMaxWidth(Double.MAX_VALUE); c=cb; }
                 else c=new TextField(f.def);
                 c.setAccessibleText(f.label);
-                controls.put(f.label,c); fields.addRow(row++,new Label(f.label),c);
+                Label label = new Label(f.label);
+                if (m.name.equals("CPU Scheduling")) {
+                    if (f.label.equals(Modules.Q0) || f.label.equals(Modules.Q1)) {
+                        label.visibleProperty().bind(advancedCpu); label.managedProperty().bind(advancedCpu);
+                        c.visibleProperty().bind(advancedCpu); c.managedProperty().bind(advancedCpu);
+                    } else if (f.label.equals(Modules.QUANTUM)) {
+                        label.textProperty().bind(Bindings.when(advancedCpu).then(f.label).otherwise("Quantum (round robin)"));
+                    }
+                }
+                controls.put(f.label,c); fields.addRow(row++,label,c);
             }
             input.setPrefRowCount(6); input.setWrapText(false); input.setAccessibleText(m.inputLabel);
             FlowPane buttons=new FlowPane(8,8);
             buttons.getChildren().addAll(button("Small",()->load(m.small)),button("Large",()->load(m.large)),button("Edge",()->load(m.edge)),button("Clear input",()->input.clear()),run);
             run.getStyleClass().add("primary");
-            card.getChildren().addAll(title,hint,fields,new Label(m.inputLabel),input,buttons);
+            Label inputLabel = new Label(m.inputLabel);
+            if (m.name.equals("CPU Scheduling")) inputLabel.textProperty().bind(Bindings.when(advancedCpu)
+                .then(m.inputLabel).otherwise("Processes (PID arrival burst [priority])"));
+            input.accessibleTextProperty().bind(inputLabel.textProperty());
+            card.getChildren().addAll(title,hint,fields,inputLabel,input,buttons);
+            refreshCpuAlgorithms();
             load(m.small);
+        }
+        @SuppressWarnings("unchecked") void refreshCpuAlgorithms() {
+            if (!module.name.equals("CPU Scheduling")) return;
+            ComboBox<String> algorithms = (ComboBox<String>)controls.get("Algorithm");
+            String selected = algorithms.getValue();
+            algorithms.getItems().setAll(Arrays.stream(Cpu.NAMES)
+                .filter(name -> advancedCpu.get() || !isMultilevel(name)).toList());
+            algorithms.setValue(algorithms.getItems().contains(selected) ? selected : Cpu.NAMES[0]);
         }
         @SuppressWarnings("unchecked") void set(String name,String value) {
             Control c=controls.get(name);
@@ -237,6 +291,11 @@ public class MiniOSFX extends Application {
         Map<String,String> options() {
             Map<String,String> opts=new LinkedHashMap<>();
             controls.forEach((k,c)->opts.put(k,c instanceof TextField f ? f.getText().trim() : String.valueOf(((ComboBox<?>)c).getValue())));
+            // Hidden, inapplicable settings must not prevent running a basic algorithm.
+            if (module.name.equals("CPU Scheduling") && !advancedCpu.get()) {
+                for (Modules.Field f : module.fields)
+                    if (f.label.equals(Modules.Q0) || f.label.equals(Modules.Q1)) opts.put(f.label, f.def);
+            }
             return opts;
         }
         void run() {
