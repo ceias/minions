@@ -21,3 +21,7 @@ The included Maven Wrapper downloads Maven and JavaFX automatically on the first
 [Full JavaFX setup and controls](MiniOS-Java/javafx/README.md) · [Rubric mapping](MiniOS-Java/RUBRIC-COVERAGE.md) · [Original Swing setup](MiniOS-Java/ANTIGRAVITY-SETUP.md)
 
 On macOS/Linux, from `MiniOS-Java/javafx`, use `sh ./mvnw test` then `sh ./mvnw javafx:run`.
+
+## Understand the code
+
+Read the [file-by-file, line-by-line study guide](docs/code-guide/README.md), including all 17 Java files, worked algorithm examples and the JavaFX shortcut. An offline searchable reader is included as `docs/code-guide/guide.html`.

@@ -1,0 +1,145 @@
+{
+  "source_commit": "dba2d321e276383939b0bf661659738741bdd343",
+  "files": [
+    {
+      "path": "MiniOS-Java/javafx/src/main/java/MiniOSFX.java",
+      "line_count": 330,
+      "sha256": "035e06c753f11dd6a318590c0e59b1ea5497d507adcbae490fdf43c168119b52"
+    },
+    {
+      "path": "MiniOS-Java/Modules.java",
+      "line_count": 153,
+      "sha256": "a08b281d983f7e761e2ec6fc3c5060b5854b8cab5c397ec9d2a06ef1f1f3b3d6"
+    },
+    {
+      "path": "MiniOS-Java/Util.java",
+      "line_count": 117,
+      "sha256": "6219511c4441598da8a0dacb5e3089d8574cb7778d25edd903795e95ad81c899"
+    },
+    {
+      "path": "MiniOS-Java/Cpu.java",
+      "line_count": 237,
+      "sha256": "27d68c4eaee96fd2412db99550897e44e50ef643c25effd1674c3985c82ddb62"
+    },
+    {
+      "path": "MiniOS-Java/Banker.java",
+      "line_count": 92,
+      "sha256": "0dc08f1aa4f6acbc36522506f7fddc533b818b1bd5da5cd6e47f1a5d2b7d359c"
+    },
+    {
+      "path": "MiniOS-Java/Deadlock.java",
+      "line_count": 106,
+      "sha256": "bee5320c8b4deed033f60aa596f41b7d9f609100efa209bfa5e42c82d405fc6e"
+    },
+    {
+      "path": "MiniOS-Java/Pages.java",
+      "line_count": 202,
+      "sha256": "fa2c5785824c7a7996890b7527333962811108ab723302f20b2b838c390e551e"
+    },
+    {
+      "path": "MiniOS-Java/Memory.java",
+      "line_count": 94,
+      "sha256": "c64cda88f71e33c98928a98fc4de4363218fcb8afdf72d83dd92d487d3264c69"
+    },
+    {
+      "path": "MiniOS-Java/Disk.java",
+      "line_count": 74,
+      "sha256": "a3e73fc5c9916361de0ec6fed36c7ed3586279681f043decf04116e5c522f909"
+    },
+    {
+      "path": "MiniOS-Java/Multi.java",
+      "line_count": 63,
+      "sha256": "7e66a5fdde094b2f2fcb1355d5bed7301216c6a472f0f8660fa5943a9045ea4a"
+    },
+    {
+      "path": "MiniOS-Java/Samples.java",
+      "line_count": 19,
+      "sha256": "896955a7c43c523f2e270eebc28c86119a7136759bb553cb77e5a0f08c03afd3"
+    },
+    {
+      "path": "MiniOS-Java/AppHelp.java",
+      "line_count": 23,
+      "sha256": "8073cc46e9c982843b0070214f51f81787f24f10c781c1633a1fde0578899ec7"
+    },
+    {
+      "path": "MiniOS-Java/MiniOS.java",
+      "line_count": 300,
+      "sha256": "43691a7e7f8f6721a74db779b7f1f20ded87cf466ab2cb4ca9543c6bf2ec5bb0"
+    },
+    {
+      "path": "MiniOS-Java/Tests.java",
+      "line_count": 168,
+      "sha256": "5a2034461aec27c882e87a329c18037e7a0f4c770bdf17b627d8f733f32df93a"
+    },
+    {
+      "path": "MiniOS-Java/RubricTests.java",
+      "line_count": 53,
+      "sha256": "40bbdde6cd94c725382ceaea9aff75f1fa565e1dd83d00f28383b38426ccfd34"
+    },
+    {
+      "path": "MiniOS-Java/AuditRegressionTests.java",
+      "line_count": 59,
+      "sha256": "b4c47f34f3bb93857dde93c9ae2638ef7689cc7ca0eb66590ff941d362fd8a32"
+    },
+    {
+      "path": "MiniOS-Java/javafx/src/test/java/ConversationTest.java",
+      "line_count": 119,
+      "sha256": "2f056a7ff8107278cd926beb9a7cdb322c82dc6bb8404fd717fd3a6f112609aa"
+    },
+    {
+      "path": "MiniOS-Java/javafx/src/main/resources/mini-os.css",
+      "line_count": 21,
+      "sha256": "d813dbd04e9517d323f4b908dd5e12d9aeb9b44f02e35e27f4680a17436ce9c4"
+    },
+    {
+      "path": "MiniOS-Java/javafx/pom.xml",
+      "line_count": 19,
+      "sha256": "8f4a82a0aab4f6f854fc474073640af3abfb734b008331513c2cb6c43c97ab49"
+    },
+    {
+      "path": "MiniOS-Java/build.sh",
+      "line_count": 9,
+      "sha256": "4a1466a6182b171dc2735042140a9551ff335390aed8bb9b866a3e68de3bb53f"
+    },
+    {
+      "path": "MiniOS-Java/build.bat",
+      "line_count": 13,
+      "sha256": "5dd7a0838fd987f574489c70cbc429b515d1bf2ff902bdab20921254d453be67"
+    },
+    {
+      "path": "MiniOS-Java/run-javafx.sh",
+      "line_count": 4,
+      "sha256": "2b5cec2262b193c646fd62e0136ceb3426d645e6707bf4e519343f17face2f28"
+    },
+    {
+      "path": "MiniOS-Java/run-javafx.bat",
+      "line_count": 3,
+      "sha256": "377054b6586de9ad79db17d770a21844707a792332005e416114e2aefe6439d1"
+    },
+    {
+      "path": "MiniOS-Java/run.sh",
+      "line_count": 3,
+      "sha256": "6041e4847fae4d78764e16630b78ec2a3df9bba622daeb28e741d2ee4ade9ef0"
+    },
+    {
+      "path": "MiniOS-Java/run.bat",
+      "line_count": 4,
+      "sha256": "fb7b822ab890891ea0b3763d7d1c9e5708ee63cb4ac6fcae26374a3f9bcfb421"
+    },
+    {
+      "path": "MiniOS-Java/javafx/mvnw",
+      "line_count": 259,
+      "sha256": "7e6e5d26712efd78140f2f63dafe8d17028f6c5c97ac1f746a043110b7a1d9ad"
+    },
+    {
+      "path": "MiniOS-Java/javafx/mvnw.cmd",
+      "line_count": 149,
+      "sha256": "3dc8d558cc15e5051a9ef3778099c6a8bcd83320ba0383ece14811194d08d730"
+    },
+    {
+      "path": "MiniOS-Java/javafx/.mvn/wrapper/maven-wrapper.properties",
+      "line_count": 19,
+      "sha256": "90da0b8373999aed95eb5626f3bf7afa54aa9268db0bae81b0f0bebf1db0a13c"
+    }
+  ]
+}
